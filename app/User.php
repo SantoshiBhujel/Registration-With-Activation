@@ -10,14 +10,17 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','active'
     ];
+    
 
     /**
      * The attributes that should be hidden for arrays.
