@@ -14,4 +14,10 @@
         </script>
     @endif
 
+    @if (Session::has('Error'))
+            <script>
+                swal("","{!! session('Error')!!}")
+            </script>
+        @endif
+
 @endsection

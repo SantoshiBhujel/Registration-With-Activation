@@ -2,8 +2,6 @@
 
 @section('content')
 
-@include('includes.alerts')
-@yield('scripts')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">

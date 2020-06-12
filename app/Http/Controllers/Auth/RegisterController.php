@@ -101,7 +101,6 @@ class RegisterController extends Controller
         //Mail the user
         Mail::to($user)->queue(new ActivationEmail($code));
     
-        
         //Redirect
         return redirect('/login')->with('Success','We sent you an email, Please check within a couple of minutes to activate!');
     }
