@@ -39,4 +39,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+
+    public function ActivationCode(){
+        return $this->hasOne(ActivationCode::class,'users_id');
+    }
+
+
+    public function userIsActivated(){ //helper function
+        if($this->active){
+            return true;
+        }
+        return false; 
+    }
 }
