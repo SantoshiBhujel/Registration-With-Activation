@@ -18,3 +18,7 @@ Mail is queued
 
 To create queued jobs table:
         php artisan queue:table {this created jobs table migration}
+
+To run queued jobs :
+    php artisan queue:work    OR
+    php artisan queue:listen
