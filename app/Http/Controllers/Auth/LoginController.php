@@ -52,26 +52,9 @@ class LoginController extends Controller
                 'code'=> str::random(128)
             ]);
             Auth::logout();
-
-            return redirect('/login')->with('Error','You are not active !!! Need the Code? Click Here! <a href="'.route('code.resend').'?email='.$user->email.'">Resend Code</a>');
-            // return redirect('/login')->with('Email',$user->email);
-
+            
+            return redirect('/login')->with('Email',$user->email);
         }
-    }
-
-    public function coderesend(Request $request)
-    {
-       
-        $user = User::whereEmail($request->email)->firstOrFail();
-
-        if($user->userIsActivated())
-        {
-            return redirect('/');
-        }
-    
-        Mail::to($user)->queue(new AccountActivation($user->ActivationCode->code) );
-
-        return redirect('/login');
     }
 }
 

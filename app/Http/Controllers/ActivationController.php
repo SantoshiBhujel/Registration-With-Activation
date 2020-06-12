@@ -16,4 +16,19 @@ class ActivationController extends Controller
         return redirect('/home');
     }
 
+    public function coderesend(Request $request)
+    {
+        $user = User::whereEmail($request->email)->firstOrFail();
+
+        if($user->userIsActivated())
+        {
+            return redirect('/');
+        }
+    
+        //mail the user firing the event
+        event(new ActivationEmailEvent($user));
+        // Mail::to($user)->queue(new AccountActivation($user->ActivationCode->code) );
+
+        return redirect('/login');
+    }
 }
