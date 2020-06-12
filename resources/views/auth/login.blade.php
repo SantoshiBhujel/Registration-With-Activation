@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+@yield('scripts')
+@include('includes.alerts')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">

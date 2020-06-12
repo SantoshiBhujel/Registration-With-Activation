@@ -103,6 +103,6 @@ class RegisterController extends Controller
     
         
         //Redirect
-        return redirect('/login');
+        return redirect('/login')->with('Success','We sent you an email, Please check within a couple of minutes to activate!');
     }
 }
