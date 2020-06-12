@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Registration With Activation
                 </div>
 
                 <div class="links">

@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use App\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
+
+use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+
 
 class RegisterController extends Controller
 {
@@ -69,5 +74,33 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    /**
+     * The user has been registered.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+    */
+
+    protected function registered(Request $request, $user)
+    {
+       //insert the code into table
+        $user->ActivationCode()->create([
+            'code'=> str::random(128)
+        ]);
+
+        //logout the user 
+    
+        // Auth::logout();
+        $this->guard()->logout();
+        
+        //Mail the user
+        
+    
+        
+        //Redirect
+        return redirect('/login');
     }
 }
