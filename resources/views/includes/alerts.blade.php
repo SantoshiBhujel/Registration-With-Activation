@@ -1,23 +1,35 @@
 @section('scripts')
-
-    @if(count($errors) >0)
-        @foreach ($errors->all() as  $error)
-            <div class="alert alert-danger ">
-                {{$error}}
-            </div>
-        @endforeach
-    @endif  
-
     @if (Session::has('Success'))
         <script>
             swal("One more step!","{!! session('Success')!!}" ,"success")
         </script>
     @endif
 
-    @if (Session::has('Error'))
+    {{-- @if (Session::has('Error'))
             <script>
                 swal("","{!! session('Error')!!}")
             </script>
-        @endif
+    @endif --}}
+
+    @if (Session::has('Email'))
+
+        <script>
+            swal({
+                title:"Your account is yet to active!",
+                text: "Want the code again ? If yes, click OK",
+                type:"error",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                showLoaderOnConfirm: true,
+                },
+                function(){
+                    setTimeout(function(){
+                        $.get('/resend/code',{email: "{!! session('Email')!!}" });
+                        swal("Email sent!");
+                    },2000);
+                }
+            );
+        </script>
+    @endif
 
 @endsection

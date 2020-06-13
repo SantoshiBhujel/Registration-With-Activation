@@ -4,7 +4,6 @@ namespace App\Mail;
 
 use App\ActivationCode;
 
-
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -25,6 +24,8 @@ class ActivationEmail extends Mailable
     {
         $this->code= $code;
         $this->url=route('user.activation', $this->code);
+        // print_r($this->url);
+        // dd();
 
     }
 

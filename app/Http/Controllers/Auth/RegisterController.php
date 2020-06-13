@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Controller;
+use App\Providers\RouteServiceProvider;
 use App\User;
+use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+
+use Illuminate\Support\Facades\Auth;// auth::logout() use garne vaye extension chaincha
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ActivationEmail;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Mail\ActivationEmail;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Events\ActivationCodeEvent;
 
 
 class RegisterController extends Controller
@@ -89,7 +90,7 @@ class RegisterController extends Controller
     protected function registered(Request $request, $user)
     {
        //insert the code into table
-        $code= $user->ActivationCode()->create([
+        $user->ActivationCode()->create([
             'code'=> str::random(128)
         ]);
 
@@ -99,9 +100,9 @@ class RegisterController extends Controller
         $this->guard()->logout();
         
         //Mail the user using event
-        event(new ActivationEmailEvent($user));
+        event(new ActivationCodeEvent($user));
         //Mail::to($user)->queue(new ActivationEmail($code));
-    
+
         //Redirect
         return redirect('/login')->with('Success','We sent you an email, Please check within a couple of minutes to activate!');
     }

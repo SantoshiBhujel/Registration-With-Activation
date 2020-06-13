@@ -18,6 +18,10 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+     <!-- for notification using dweetlert-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" integrity="sha256-iXUYfkbVl5itd4bAkFH5mjMEN5ld9t3OHvXX3IU8UxU=" crossorigin="anonymous" />
+
 </head>
 <body>
     <div id="app">
@@ -71,13 +75,12 @@
                 </div>
             </div>
         </nav>
-        @include('includes.alerts')
         <main class="py-4">
-          
+            @include('includes.alerts')
             @yield('content')
         </main>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js" integrity="sha256-egVvxkq6UBCQyKzRBrDHu8miZ5FOaVrjSqQqauKglKc=" crossorigin="anonymous"></script>
-
+    @yield('scripts')
 </body>
 </html>

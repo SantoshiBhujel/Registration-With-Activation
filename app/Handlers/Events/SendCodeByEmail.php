@@ -1,17 +1,13 @@
 <?php
 
-namespace App\Listeners;
+namespace App\Handlers\Events;
 
-use App\Events\ActivationCodeEvent;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
-
-use queue;
-use App\User;
-use App\ActivationCode;
-use Illuminate\Support\Facades\Mail;
-use App\Events\ActivationEmailEvent;
 use App\Mail\ActivationEmail;
+use App\Events\ActivationCodeEvent;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Contracts\Queue\ShouldQueue;
+
 class SendCodeByEmail
 {
     /**
@@ -32,6 +28,6 @@ class SendCodeByEmail
      */
     public function handle(ActivationCodeEvent $event)
     {
-        Mail::to($event->user)->send(new ActivationEmail($event->user->ActivationCode) );
+        Mail::to($event->user)->queue(new ActivationEmail($event->user->ActivationCode) );
     }
 }
